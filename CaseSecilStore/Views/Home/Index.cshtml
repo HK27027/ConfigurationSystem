@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfigürasyon Yönetim Sistemi</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container-fluid py-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center py-4">
+                        <h1 class="display-4 text-primary mb-2">
+                            <i class="bi bi-gear-fill me-2"></i>
+                            Konfigürasyon Yönetim Sistemi
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-3">
+                                <label for="applicationFilter" class="form-label fw-bold">Uygulama</label>
+                                <select id="applicationFilter" class="form-select">
+                                    <option value="">Tüm Uygulamalar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="nameFilter" class="form-label fw-bold">İsim</label>
+                                <input type="text" id="nameFilter" class="form-control" placeholder="İsme göre filtrele...">
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button class="btn btn-outline-secondary me-2" onclick="clearFilters()">
+                                    <i class="bi bi-x-circle me-1"></i>
+                                    Temizle
+                                </button>
+                                <button class="btn btn-primary" onclick="openAddModal()">
+                                    <i class="bi bi-plus-circle me-1"></i>
+                                    Yeni Ekle
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div id="loading" class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Yükleniyor...</span>
+                            </div>
+                            <p class="mt-3 text-muted">Konfigürasyonlar yükleniyor...</p>
+                        </div>
+                        <div id="tableContainer" style="display: none;">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>İsim</th>
+                                            <th>Tip</th>
+                                            <th>Değer</th>
+                                            <th>Uygulama</th>
+                                            <th width="200">İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="configTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="noData" class="text-center py-5" style="display: none;">
+                            <i class="bi bi-inbox display-1 text-muted"></i>
+                            <p class="mt-3 text-muted">Hiç konfigürasyon bulunamadı</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="configModalLabel">Konfigürasyon Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="configForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">İsim <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Tip <span class="text-danger">*</span></label>
+                            <select class="form-select" id="type" name="type" required>
+                                <option value="">Tip Seçin</option>
+                                <option value="string">Metin</option>
+                                <option value="int">Tam Sayı</option>
+                                <option value="bool">Mantıksal</option>
+                                <option value="double">Ondalık</option>
+                                <option value="decimal">Hassas Ondalık</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="value" class="form-label">Değer <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="value" name="value" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="applicationName" class="form-label">Uygulama Adı <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="applicationName" name="applicationName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="handleFormSubmit(event)">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <i class="bi bi-check-circle me-2"></i>
+                <strong class="me-auto">Başarılı</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="successMessage">
+            </div>
+        </div>
+        <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                <strong class="me-auto">Hata</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="errorMessage">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE_URL = '/api/configuration';
+        let configurations = [];
+        let currentEditId = null;
+        let configModal;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            configModal = new bootstrap.Modal(document.getElementById('configModal'));
+            loadConfigurations();
+            loadApplications();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('nameFilter').addEventListener('input', debounce(filterConfigurations, 300));
+            document.getElementById('applicationFilter').addEventListener('change', filterConfigurations);
+            document.getElementById('statusFilter').addEventListener('change', filterConfigurations);
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        async function loadConfigurations() {
+            try {
+                showLoading();
+                const response = await fetch(API_BASE_URL);
+                if (!response.ok) {
+                    throw new Error('Konfigürasyonlar yüklenemedi');
+                }
+                configurations = await response.json();
+                displayConfigurations(configurations);
+            } catch (error) {
+                console.error('Hata:', error);
+                showError('Konfigürasyonlar yüklenirken hata oluştu');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function loadApplications() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/applications`);
+                if (!response.ok) {
+                    throw new Error('Uygulama listesi yüklenemedi');
+                }
+                const applications = await response.json();
+                const select = document.getElementById('applicationFilter');
+
+                applications.forEach(app => {
+                    const option = document.createElement('option');
+                    option.value = app;
+                    option.textContent = app;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Hata:', error);
+            }
+        }
+
+        function displayConfigurations(configs) {
+            const tbody = document.getElementById('configTableBody');
+            const tableContainer = document.getElementById('tableContainer');
+            const noData = document.getElementById('noData');
+
+            tbody.innerHTML = '';
+
+            if (configs.length === 0) {
+                tableContainer.style.display = 'none';
+                noData.style.display = 'block';
+                return;
+            }
+
+            tableContainer.style.display = 'block';
+            noData.style.display = 'none';
+
+            configs.forEach(config => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                            <td class="fw-semibold">${config.name}</td>
+                            <td><span class="badge bg-info">${config.type}</span></td>
+                            <td><code>${config.value}</code></td>
+                            <td>${config.applicationName}</td>
+                    
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button class="btn btn-outline-primary" onclick="editConfiguration('${config.id}')" title="Düzenle">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                             
+                                    <button class="btn btn-outline-danger" onclick="deleteConfiguration('${config.id}')" title="Sil">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterConfigurations() {
+            const nameFilter = document.getElementById('nameFilter').value.toLowerCase();
+            const applicationFilter = document.getElementById('applicationFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            const filtered = configurations.filter(config => {
+                const matchesName = !nameFilter || config.name.toLowerCase().includes(nameFilter);
+                const matchesApplication = !applicationFilter || config.applicationName === applicationFilter;
+
+                return matchesName && matchesApplication && matchesStatus;
+            });
+
+            displayConfigurations(filtered);
+        }
+
+        function clearFilters() {
+            document.getElementById('nameFilter').value = '';
+            document.getElementById('applicationFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            displayConfigurations(configurations);
+        }
+
+        function openAddModal() {
+            currentEditId = null;
+            document.getElementById('configModalLabel').textContent = 'Konfigürasyon Ekle';
+            document.getElementById('configForm').reset();
+            configModal.show();
+        }
+
+        function editConfiguration(id) {
+            const config = configurations.find(c => c.id === id);
+            if (!config) return;
+
+            currentEditId = id;
+            document.getElementById('configModalLabel').textContent = 'Konfigürasyon Düzenle';
+            document.getElementById('name').value = config.name;
+            document.getElementById('type').value = config.type;
+            document.getElementById('value').value = config.value;
+            document.getElementById('applicationName').value = config.applicationName;
+
+            configModal.show();
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const form = document.getElementById('configForm');
+            const formData = new FormData(form);
+            const configData = {
+                name: formData.get('name'),
+                type: formData.get('type'),
+                value: formData.get('value'),
+                applicationName: formData.get('applicationName'),
+            };
+
+            try {
+                let response;
+                if (currentEditId) {
+                    response = await fetch(`${API_BASE_URL}/${currentEditId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(configData)
+                    });
+                } else {
+                    response = await fetch(API_BASE_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(configData)
+                    });
+                }
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(error);
+                }
+
+                configModal.hide();
+                await loadConfigurations();
+                await loadApplications();
+                showSuccess(currentEditId ? 'Konfigürasyon güncellendi' : 'Konfigürasyon eklendi');
+            } catch (error) {
+                console.error('Hata:', error);
+                showError('İşlem gerçekleştirilirken hata oluştu: ' + error.message);
+            }
+        }
+
+    
+
+        async function deleteConfiguration(id) {
+            // Bootstrap modal ile onay
+            const confirmed = confirm('Bu konfigürasyonu silmek istediğinizden emin misiniz?');
+            if (!confirmed) return;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Konfigürasyon silinemedi');
+                }
+
+                await loadConfigurations();
+                await loadApplications();
+                showSuccess('Konfigürasyon silindi');
+            } catch (error) {
+                console.error('Hata:', error);
+                showError('Konfigürasyon silinirken hata oluştu');
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('tableContainer').style.display = 'none';
+            document.getElementById('noData').style.display = 'none';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            document.getElementById('successMessage').textContent = message;
+            const toast = new bootstrap.Toast(document.getElementById('successToast'));
+            toast.show();
+        }
+
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            const toast = new bootstrap.Toast(document.getElementById('errorToast'));
+            toast.show();
+        }
+    </script>
+</body>
+</html>

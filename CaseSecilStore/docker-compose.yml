@@ -1,0 +1,23 @@
+﻿services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app:
+    build: .
+    container_name: case-secil-store
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MongoDB=mongodb://mongo:27017  
+      - Mongo__DatabaseName=CaseSecilDb
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:
