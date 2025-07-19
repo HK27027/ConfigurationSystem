@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using CaseSecilStore.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CaseSecilStore.Controllers
 {
@@ -11,20 +12,24 @@ namespace CaseSecilStore.Controllers
     {
         private readonly IMongoCollection<ConfigurationItem> _collection;
         private readonly ILogger<ConfigurationController> _logger;
+        private readonly IMemoryCache _memoryCache;
 
-        public ConfigurationController(IMongoDatabase database, ILogger<ConfigurationController> logger)
+        public ConfigurationController(IMongoDatabase database, ILogger<ConfigurationController> logger, IMemoryCache cache)
         {
             _collection = database.GetCollection<ConfigurationItem>("Configurations");
             _logger = logger;
+            _memoryCache = cache;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ConfigurationItem>>> GetConfigurations(
-            [FromQuery] string? applicationName = null,
-            [FromQuery] string? name = null)
+        [FromQuery] string? applicationName = null,
+        [FromQuery] string? name = null)
         {
             try
             {
+                var cacheKey = $"configurations_{applicationName ?? "all"}_{name ?? "all"}";
+
                 var filterBuilder = Builders<ConfigurationItem>.Filter;
                 var filter = filterBuilder.Empty;
                 filter &= filterBuilder.Eq(x => x.IsActive, true);
@@ -33,18 +38,49 @@ namespace CaseSecilStore.Controllers
                 {
                     filter &= filterBuilder.Eq(x => x.ApplicationName, applicationName);
                 }
-
                 if (!string.IsNullOrEmpty(name))
                 {
                     filter &= filterBuilder.Regex(x => x.Name, new MongoDB.Bson.BsonRegularExpression(name, "i"));
                 }
 
                 var configurations = await _collection.Find(filter).ToListAsync();
-                return Ok(configurations);
+
+                if (configurations.Any())
+                {
+                    var cacheEntryOptions = new MemoryCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
+                        SlidingExpiration = TimeSpan.FromMinutes(10),
+                        Priority = CacheItemPriority.High
+                    };
+
+                    _memoryCache.Set(cacheKey, configurations, cacheEntryOptions);
+                    return Ok(configurations);
+                }
+                else
+                {
+                    if (_memoryCache.TryGetValue(cacheKey, out List<ConfigurationItem>? cachedConfigurations)
+                        && cachedConfigurations != null)
+                    {
+                        _logger.LogInformation("Returning cached configurations for key: {CacheKey}", cacheKey);
+                        return Ok(cachedConfigurations);
+                    }
+
+                    return Ok(new List<ConfigurationItem>());
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error retrieving configurations");
+
+                var fallbackCacheKey = $"configurations_{applicationName ?? "all"}_{name ?? "all"}";
+                if (_memoryCache.TryGetValue(fallbackCacheKey, out List<ConfigurationItem>? fallbackConfigurations)
+                    && fallbackConfigurations != null)
+                {
+                    _logger.LogWarning("Returning cached configurations due to error");
+                    return Ok(fallbackConfigurations);
+                }
+
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -73,7 +109,6 @@ namespace CaseSecilStore.Controllers
         {
             try
             {
-                // Validate configuration
                 if (string.IsNullOrEmpty(configuration.Name) ||
                     string.IsNullOrEmpty(configuration.Type) ||
                     string.IsNullOrEmpty(configuration.ApplicationName))
@@ -81,7 +116,6 @@ namespace CaseSecilStore.Controllers
                     return BadRequest("Name, Type, and ApplicationName are required");
                 }
 
-                // Check if configuration with same name exists for the application
                 var existingConfig = await _collection.Find(x =>
                     x.Name == configuration.Name &&
                     x.ApplicationName == configuration.ApplicationName).FirstOrDefaultAsync();
