@@ -75,3 +75,7 @@ C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\obj\Debug\
 C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\obj\Debug\net8.0\CaseSecilStore.pdb
 C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\obj\Debug\net8.0\CaseSecilStore.genruntimeconfig.cache
 C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\obj\Debug\net8.0\ref\CaseSecilStore.dll
+C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\bin\Debug\net8.0\Library.dll
+C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\bin\Debug\net8.0\Library.pdb
+C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Hüseyin\Documents\GitHub\ConfigurationSystem\CaseSecilStore\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll

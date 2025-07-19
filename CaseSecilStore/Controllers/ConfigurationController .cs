@@ -45,8 +45,7 @@ namespace CaseSecilStore.Controllers
 
                 var configurations = await _collection.Find(filter).ToListAsync();
 
-                if (configurations.Any())
-                {
+               
                     var cacheEntryOptions = new MemoryCacheEntryOptions
                     {
                         AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
@@ -56,18 +55,8 @@ namespace CaseSecilStore.Controllers
 
                     _memoryCache.Set(cacheKey, configurations, cacheEntryOptions);
                     return Ok(configurations);
-                }
-                else
-                {
-                    if (_memoryCache.TryGetValue(cacheKey, out List<ConfigurationItem>? cachedConfigurations)
-                        && cachedConfigurations != null)
-                    {
-                        _logger.LogInformation("Returning cached configurations for key: {CacheKey}", cacheKey);
-                        return Ok(cachedConfigurations);
-                    }
-
-                    return Ok(new List<ConfigurationItem>());
-                }
+                
+         
             }
             catch (Exception ex)
             {

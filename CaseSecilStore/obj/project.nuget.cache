@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Z+fMuLYneDFw7p74pNFbi2ZyVPT1wpHuRz0KG2wIRlBWTAZ1c2ayUJZpGBc3zei4c//HqpSZ2+jWNf76lRTT+A==",
+  "dgSpecHash": "2bME8f5aquW2H2l2Y+MzQg16+uxHMFbbAU46JvLMIfJjcjKlj2BZEP8SGLN6h4yH1fwoyJHLyPbRSNNnnw3e4w==",
   "success": true,
   "projectFilePath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hüseyin\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
+    "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.7\\microsoft.extensions.configuration.abstractions.9.0.7.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.0\\microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
+    "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.7\\microsoft.extensions.primitives.9.0.7.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\mongodb.bson\\3.4.1\\mongodb.bson.3.4.1.nupkg.sha512",
