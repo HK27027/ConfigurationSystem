@@ -21,8 +21,7 @@ namespace CaseSecilStore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ConfigurationItem>>> GetConfigurations(
             [FromQuery] string? applicationName = null,
-            [FromQuery] string? name = null,
-            [FromQuery] bool? isActive = null)
+            [FromQuery] string? name = null)
         {
             try
             {
@@ -38,11 +37,6 @@ namespace CaseSecilStore.Controllers
                 if (!string.IsNullOrEmpty(name))
                 {
                     filter &= filterBuilder.Regex(x => x.Name, new MongoDB.Bson.BsonRegularExpression(name, "i"));
-                }
-
-                if (isActive.HasValue)
-                {
-                    filter &= filterBuilder.Eq(x => x.IsActive, isActive.Value);
                 }
 
                 var configurations = await _collection.Find(filter).ToListAsync();

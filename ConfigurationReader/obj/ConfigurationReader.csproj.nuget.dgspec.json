@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\ConfigurationReader\\ConfigurationReader.csproj": {}
+    "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\ConfigurationReader\\ConfigurationReader.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\CaseSecilStore\\CaseSecilStore.csproj": {
+    "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\CaseSecilStore\\CaseSecilStore.csproj",
+        "projectUniqueName": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj",
         "projectName": "CaseSecilStore",
-        "projectPath": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\CaseSecilStore\\CaseSecilStore.csproj",
+        "projectPath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj",
         "packagesPath": "C:\\Users\\Hüseyin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\CaseSecilStore\\obj\\",
+        "outputPath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -81,14 +81,14 @@
         }
       }
     },
-    "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\ConfigurationReader\\ConfigurationReader.csproj": {
+    "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\ConfigurationReader\\ConfigurationReader.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\ConfigurationReader\\ConfigurationReader.csproj",
+        "projectUniqueName": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\ConfigurationReader\\ConfigurationReader.csproj",
         "projectName": "ConfigurationReader",
-        "projectPath": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\ConfigurationReader\\ConfigurationReader.csproj",
+        "projectPath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\ConfigurationReader\\ConfigurationReader.csproj",
         "packagesPath": "C:\\Users\\Hüseyin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\ConfigurationReader\\obj\\",
+        "outputPath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\ConfigurationReader\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -109,8 +109,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\CaseSecilStore\\CaseSecilStore.csproj": {
-                "projectPath": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\CaseSecilStore\\CaseSecilStore.csproj"
+              "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj": {
+                "projectPath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj"
               }
             }
           }

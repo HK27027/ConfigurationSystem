@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gK8h562uRsRto6oEauL/9+vFzktkjpcT944yT47q8jssVMCYEk4IKkpxUH2AEd/F64UwHgxws5q0elCAIs0SRw==",
+  "dgSpecHash": "Z+fMuLYneDFw7p74pNFbi2ZyVPT1wpHuRz0KG2wIRlBWTAZ1c2ayUJZpGBc3zei4c//HqpSZ2+jWNf76lRTT+A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hüseyin\\source\\repos\\CaseSecilStore\\CaseSecilStore\\CaseSecilStore.csproj",
+  "projectFilePath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hüseyin\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.0\\microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
