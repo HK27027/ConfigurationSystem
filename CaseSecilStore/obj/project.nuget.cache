@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "0X70kSDE+JsMVYGZiJgf1bJQcTpznwThl8PGgB6QHZHHYjrF5bLJV/AWKPN1UpAv/7eNVfKdJKl5hub61J76xw==",
+  "dgSpecHash": "kyMdq1YLR1lNgU8zSnMSABkhiv6P34pFCy36xzLrpU6pmwAQbz3UgBvKonU17Q7tuP32YKQ29M1SgXap1fcAtQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Hüseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Hüseyin\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
@@ -19,7 +18,6 @@
     "C:\\Users\\Hüseyin\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\mongodb.bson\\3.4.1\\mongodb.bson.3.4.1.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\mongodb.driver\\3.4.1\\mongodb.driver.3.4.1.nupkg.sha512",
-    "C:\\Users\\Hüseyin\\.nuget\\packages\\moq\\4.20.72\\moq.4.20.72.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\sharpcompress\\0.30.1\\sharpcompress.0.30.1.nupkg.sha512",
@@ -27,7 +25,6 @@
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.diagnostics.debug\\4.0.11\\system.diagnostics.debug.4.0.11.nupkg.sha512",
-    "C:\\Users\\Hüseyin\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.diagnostics.tools\\4.0.1\\system.diagnostics.tools.4.0.1.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.dynamic.runtime\\4.0.11\\system.dynamic.runtime.4.0.11.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.globalization\\4.0.11\\system.globalization.4.0.11.nupkg.sha512",
@@ -63,10 +60,6 @@
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.threading.tasks.extensions\\4.0.0\\system.threading.tasks.extensions.4.0.0.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.xml.readerwriter\\4.0.11\\system.xml.readerwriter.4.0.11.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\system.xml.xdocument\\4.0.11\\system.xml.xdocument.4.0.11.nupkg.sha512",
-    "C:\\Users\\Hüseyin\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
-    "C:\\Users\\Hüseyin\\.nuget\\packages\\xunit.assert\\2.9.3\\xunit.assert.2.9.3.nupkg.sha512",
-    "C:\\Users\\Hüseyin\\.nuget\\packages\\xunit.extensibility.core\\2.9.3\\xunit.extensibility.core.2.9.3.nupkg.sha512",
-    "C:\\Users\\Hüseyin\\.nuget\\packages\\xunit.runner.visualstudio\\3.1.3\\xunit.runner.visualstudio.3.1.3.nupkg.sha512",
     "C:\\Users\\Hüseyin\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
   "logs": []

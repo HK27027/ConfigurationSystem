@@ -5,6 +5,7 @@ WORKDIR /src
 COPY ["CaseSecilStore.sln", "."]
 COPY ["Library/Library.csproj", "Library/"]
 COPY ["CaseSecilStore/CaseSecilStore.csproj", "CaseSecilStore/"]
+COPY ["Test/Test.csproj", "Test/"]
 
 # Bağımlılıkları restore et
 RUN dotnet restore "CaseSecilStore.sln"
