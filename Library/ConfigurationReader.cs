@@ -238,22 +238,16 @@ namespace Library
         }
 
 
-        public T GetValue<T>(string key)
+        public async Task<T> GetValue<T>(string key)
         {
             if (_configCache.TryGetValue(key, out var configItem))
             {
                 return ConvertValue<T>(configItem.Value, configItem.Type);
             }
-
             _logger?.LogWarning($"Configuration key '{key}' not found for application '{_applicationName}'");
             return default(T);
         }
 
-        public async Task<string?> GetValueByNameAsync(string name)
-        {
-            var config = await GetConfigurationByNameAsync(name);
-            return config?.Value;
-        }
 
         // AppSettings senkronizasyonu 
         public async Task SyncConfigurationsFromAppSettings(IConfiguration configuration)

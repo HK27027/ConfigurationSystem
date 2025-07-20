@@ -65,7 +65,7 @@ namespace CaseSecilStore.Controllers
         {
             try
             {
-                var value = await _configurationReader.GetValueByNameAsync(name);
+                 var value = await _configurationReader.GetValue<string>(name);
                 if (value == null)
                 {
                     return NotFound($"Configuration with name '{name}' not found");
