@@ -220,7 +220,6 @@ namespace Library
                     return false;
                 }
 
-                // Soft delete - IsActive false yap
                 existingConfig.IsActive = false;
                 await _collection.ReplaceOneAsync(x => x.Id == id, existingConfig);
 

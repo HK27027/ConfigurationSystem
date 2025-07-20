@@ -50,8 +50,7 @@
               "RelativeToolTip": "CaseSecilStore\\Models\\ConfigurationItem.cs",
               "ViewState": "AQIAAA8AAAAAAAAAAAAowB0AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-20T01:34:28.601Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-20T01:34:28.601Z"
             },
             {
               "$type": "Document",
@@ -63,8 +62,7 @@
               "RelativeToolTip": "CaseSecilStore\\Views\\Home\\Index.cshtml",
               "ViewState": "AQIAALABAAAAAAAAAAAgwL8BAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-19T22:35:01.9Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T22:35:01.9Z"
             },
             {
               "$type": "Document",
@@ -74,7 +72,7 @@
               "RelativeDocumentMoniker": "Library\\ConfigurationReader.cs",
               "ToolTip": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\Library\\ConfigurationReader.cs",
               "RelativeToolTip": "Library\\ConfigurationReader.cs",
-              "ViewState": "AQIAAO8AAAAAAAAAAAAYwPgAAAAJAAAA",
+              "ViewState": "AQIAAFEBAAAAAAAAAAAswG8BAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-19T21:57:27.607Z",
               "EditorCaption": ""
@@ -89,8 +87,7 @@
               "RelativeToolTip": "CaseSecilStore\\Program.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAAABYAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T21:13:50.529Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T21:13:50.529Z"
             },
             {
               "$type": "Document",
@@ -114,8 +111,7 @@
               "RelativeToolTip": "CaseSecilStore\\Controllers\\ConfigurationController .cs",
               "ViewState": "AQIAACwAAAAAAAAAAAAAwEMAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T17:52:36.236Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T17:52:36.236Z"
             }
           ]
         }
