@@ -24,5 +24,9 @@ namespace CaseSecilStore.Models
 
         [BsonRequired]
         public string ApplicationName { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        [BsonDefaultValue("UtcNow")]
+        public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
     }
 }

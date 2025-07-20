@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CaseSecilStore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b013cc3b7185233be55a567109833f5d236198ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd868e37c87de8493e3138171075a492f68a6cbe")]
 [assembly: System.Reflection.AssemblyProductAttribute("CaseSecilStore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CaseSecilStore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

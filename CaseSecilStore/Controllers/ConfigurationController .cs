@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using CaseSecilStore.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Caching.Memory;
+using Library;
 
 namespace CaseSecilStore.Controllers
 {
@@ -10,66 +7,36 @@ namespace CaseSecilStore.Controllers
     [Route("api/[controller]")]
     public class ConfigurationController : ControllerBase
     {
-        private readonly IMongoCollection<ConfigurationItem> _collection;
+        private readonly ConfigurationReader _configurationReader;
         private readonly ILogger<ConfigurationController> _logger;
-        private readonly IMemoryCache _memoryCache;
 
-        public ConfigurationController(IMongoDatabase database, ILogger<ConfigurationController> logger, IMemoryCache cache)
+        public ConfigurationController(ConfigurationReader configurationReader, ILogger<ConfigurationController> logger)
         {
-            _collection = database.GetCollection<ConfigurationItem>("Configurations");
+            _configurationReader = configurationReader;
             _logger = logger;
-            _memoryCache = cache;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ConfigurationItem>>> GetConfigurations(
-        [FromQuery] string? applicationName = null,
-        [FromQuery] string? name = null)
+        public async Task<ActionResult<IEnumerable<ConfigurationItem>>> GetConfigurations([FromQuery] string? name = null)
         {
             try
             {
-                var cacheKey = $"configurations_{applicationName ?? "all"}_{name ?? "all"}";
+                IEnumerable<ConfigurationItem> configurations;
 
-                var filterBuilder = Builders<ConfigurationItem>.Filter;
-                var filter = filterBuilder.Empty;
-                filter &= filterBuilder.Eq(x => x.IsActive, true);
-
-                if (!string.IsNullOrEmpty(applicationName))
-                {
-                    filter &= filterBuilder.Eq(x => x.ApplicationName, applicationName);
-                }
                 if (!string.IsNullOrEmpty(name))
                 {
-                    filter &= filterBuilder.Regex(x => x.Name, new MongoDB.Bson.BsonRegularExpression(name, "i"));
+                    configurations = await _configurationReader.SearchConfigurationsByNameAsync(name);
+                }
+                else
+                {
+                    configurations = await _configurationReader.GetAllConfigurationsAsync();
                 }
 
-                var configurations = await _collection.Find(filter).ToListAsync();
-
-               
-                    var cacheEntryOptions = new MemoryCacheEntryOptions
-                    {
-                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
-                        SlidingExpiration = TimeSpan.FromMinutes(10),
-                        Priority = CacheItemPriority.High
-                    };
-
-                    _memoryCache.Set(cacheKey, configurations, cacheEntryOptions);
-                    return Ok(configurations);
-                
-         
+                return Ok(configurations);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error retrieving configurations");
-
-                var fallbackCacheKey = $"configurations_{applicationName ?? "all"}_{name ?? "all"}";
-                if (_memoryCache.TryGetValue(fallbackCacheKey, out List<ConfigurationItem>? fallbackConfigurations)
-                    && fallbackConfigurations != null)
-                {
-                    _logger.LogWarning("Returning cached configurations due to error");
-                    return Ok(fallbackConfigurations);
-                }
-
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -79,7 +46,7 @@ namespace CaseSecilStore.Controllers
         {
             try
             {
-                var configuration = await _collection.Find(x => x.Id == id&&x.IsActive==true).FirstOrDefaultAsync();
+                var configuration = await _configurationReader.GetConfigurationByIdAsync(id);
                 if (configuration == null)
                 {
                     return NotFound();
@@ -93,30 +60,40 @@ namespace CaseSecilStore.Controllers
             }
         }
 
+        [HttpGet("value/{name}")]
+        public async Task<ActionResult<string>> GetValueByName(string name)
+        {
+            try
+            {
+                var value = await _configurationReader.GetValueByNameAsync(name);
+                if (value == null)
+                {
+                    return NotFound($"Configuration with name '{name}' not found");
+                }
+                return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving value for configuration name {Name}", name);
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<ConfigurationItem>> CreateConfiguration(ConfigurationItem configuration)
         {
             try
             {
-                if (string.IsNullOrEmpty(configuration.Name) ||
-                    string.IsNullOrEmpty(configuration.Type) ||
-                    string.IsNullOrEmpty(configuration.ApplicationName))
-                {
-                    return BadRequest("Name, Type, and ApplicationName are required");
-                }
-
-                var existingConfig = await _collection.Find(x =>
-                    x.Name == configuration.Name &&
-                    x.ApplicationName == configuration.ApplicationName).FirstOrDefaultAsync();
-
-                if (existingConfig != null)
-                {
-                    return Conflict($"Configuration with name '{configuration.Name}' already exists for application '{configuration.ApplicationName}'");
-                }
-
-
-                await _collection.InsertOneAsync(configuration);
-                return CreatedAtAction(nameof(GetConfiguration), new { id = configuration.Id }, configuration);
+                var createdConfiguration = await _configurationReader.CreateConfigurationAsync(configuration);
+                return CreatedAtAction(nameof(GetConfiguration), new { id = createdConfiguration.Id }, createdConfiguration);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
@@ -130,16 +107,16 @@ namespace CaseSecilStore.Controllers
         {
             try
             {
-                var existingConfig = await _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
-                if (existingConfig == null)
+                var updatedConfiguration = await _configurationReader.UpdateConfigurationAsync(id, configuration);
+                if (updatedConfiguration == null)
                 {
                     return NotFound();
                 }
-
-                configuration.Id = id;
-
-                await _collection.ReplaceOneAsync(x => x.Id == id, configuration);
-                return Ok(configuration);
+                return Ok(updatedConfiguration);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
@@ -153,41 +130,18 @@ namespace CaseSecilStore.Controllers
         {
             try
             {
-                var existingConfig = await _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
-                if (existingConfig == null)
+                var deleted = await _configurationReader.DeleteConfigurationAsync(id);
+                if (!deleted)
                 {
                     return NotFound();
                 }
-                existingConfig.IsActive = false;
-
-                await _collection.ReplaceOneAsync(x => x.Id == id, existingConfig);
-                return Ok(existingConfig);
+                return NoContent();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error updating configuration {Id}", id);
+                _logger.LogError(ex, "Error deleting configuration {Id}", id);
                 return StatusCode(500, "Internal server error");
             }
         }
-
-        [HttpGet("applications")]
-        public async Task<ActionResult<IEnumerable<string>>> GetApplicationNames()
-        {
-            try
-            {
-                var filter = Builders<ConfigurationItem>.Filter.Eq(x => x.IsActive, true);
-
-                var applicationNames = await _collection.Distinct<string>("ApplicationName", filter).ToListAsync();
-
-                return Ok(applicationNames);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving application names");
-                return StatusCode(500, "Internal server error");
-            }
-        }
-
-
     }
 }

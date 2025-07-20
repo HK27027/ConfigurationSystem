@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4D824C04-2438-4CFD-B0C4-1938C1F5FBF7}|Solution Items{4D824C04-2438-4CFD-B0C4-1938C1F5FBF7}|C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{4D824C04-2438-4CFD-B0C4-1938C1F5FBF7}|Solution Items{4D824C04-2438-4CFD-B0C4-1938C1F5FBF7}|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|solutionrelative:casesecilstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\casesecilstore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|solutionrelative:casesecilstore\\casesecilstore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\controllers\\configurationcontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|solutionrelative:casesecilstore\\controllers\\configurationcontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DAC21F0C-C35B-4B3A-9381-4C22FE70433E}|Library\\Library.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\library\\configurationreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DAC21F0C-C35B-4B3A-9381-4C22FE70433E}|Library\\Library.csproj|solutionrelative:library\\configurationreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\controllers\\configurationcontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|solutionrelative:casesecilstore\\controllers\\configurationcontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\models\\configurationitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|solutionrelative:casesecilstore\\models\\configurationitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -29,6 +21,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|solutionrelative:casesecilstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|c:\\users\\h\u00FCseyin\\documents\\github\\configurationsystem\\casesecilstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E313D87-D6F0-4772-A170-E18CA4B22A74}|CaseSecilStore\\CaseSecilStore.csproj|solutionrelative:casesecilstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,56 +42,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "docker-compose.yml",
-              "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\docker-compose.yml",
-              "RelativeDocumentMoniker": "docker-compose.yml",
-              "ToolTip": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\docker-compose.yml",
-              "RelativeToolTip": "docker-compose.yml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2025-07-20T00:42:01.773Z",
+              "DocumentIndex": 2,
+              "Title": "ConfigurationItem.cs",
+              "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\Models\\ConfigurationItem.cs",
+              "RelativeDocumentMoniker": "CaseSecilStore\\Models\\ConfigurationItem.cs",
+              "ToolTip": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\Models\\ConfigurationItem.cs",
+              "RelativeToolTip": "CaseSecilStore\\Models\\ConfigurationItem.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAowB0AAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T01:34:28.601Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CaseSecilStore.csproj",
-              "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj",
-              "RelativeDocumentMoniker": "CaseSecilStore\\CaseSecilStore.csproj",
-              "ToolTip": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\CaseSecilStore.csproj",
-              "RelativeToolTip": "CaseSecilStore\\CaseSecilStore.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-20T00:33:57.491Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "CaseSecilStore\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "CaseSecilStore\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAHEBAAAAAAAAAAAuwI4BAAAHAAAA",
+              "ViewState": "AQIAAKsBAAAAAAAAAAAAwL8BAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-19T22:35:01.9Z"
+              "WhenOpened": "2025-07-19T22:35:01.9Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "ConfigurationReader.cs",
               "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\Library\\ConfigurationReader.cs",
               "RelativeDocumentMoniker": "Library\\ConfigurationReader.cs",
               "ToolTip": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\Library\\ConfigurationReader.cs",
               "RelativeToolTip": "Library\\ConfigurationReader.cs",
-              "ViewState": "AQIAAC4AAAAAAAAAAAAAAD0AAAAAAAAA",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAqwDYAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T21:57:27.607Z"
+              "WhenOpened": "2025-07-19T21:57:27.607Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\Program.cs",
               "RelativeDocumentMoniker": "CaseSecilStore\\Program.cs",
@@ -103,11 +89,12 @@
               "RelativeToolTip": "CaseSecilStore\\Program.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAAABYAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T21:13:50.529Z"
+              "WhenOpened": "2025-07-19T21:13:50.529Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\appsettings.json",
               "RelativeDocumentMoniker": "CaseSecilStore\\appsettings.json",
@@ -115,19 +102,21 @@
               "RelativeToolTip": "CaseSecilStore\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-19T21:10:01.479Z"
+              "WhenOpened": "2025-07-19T21:10:01.479Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "ConfigurationController .cs",
               "DocumentMoniker": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\Controllers\\ConfigurationController .cs",
               "RelativeDocumentMoniker": "CaseSecilStore\\Controllers\\ConfigurationController .cs",
               "ToolTip": "C:\\Users\\H\u00FCseyin\\Documents\\GitHub\\ConfigurationSystem\\CaseSecilStore\\Controllers\\ConfigurationController .cs",
               "RelativeToolTip": "CaseSecilStore\\Controllers\\ConfigurationController .cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAwwKwAAAAhAAAA",
+              "ViewState": "AQIAAF4AAAAAAAAAAAAqwGwAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T17:52:36.236Z"
+              "WhenOpened": "2025-07-19T17:52:36.236Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -21,22 +21,26 @@
                 </div>
             </div>
         </div>
+
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
                         <div class="row g-3 mb-3">
-                            <div class="col-md-3">
-                                <label for="applicationFilter" class="form-label fw-bold">Uygulama</label>
-                                <select id="applicationFilter" class="form-select">
-                                    <option value="">Tüm Uygulamalar</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="nameFilter" class="form-label fw-bold">İsim</label>
+                            <div class="col-md-4">
+                                <label for="nameFilter" class="form-label fw-bold">İsim Ara</label>
                                 <input type="text" id="nameFilter" class="form-control" placeholder="İsme göre filtrele...">
                             </div>
-                            <div class="col-md-3 d-flex align-items-end">
+                            <div class="col-md-4">
+                                <label for="valueSearch" class="form-label fw-bold">Değer Al</label>
+                                <div class="input-group">
+                                    <input type="text" id="valueSearch" class="form-control" placeholder="İsim girin...">
+                                    <button class="btn btn-outline-info" type="button" onclick="getValueByName()">
+                                        <i class="bi bi-search me-1"></i>Değer Al
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end">
                                 <button class="btn btn-outline-secondary me-2" onclick="clearFilters()">
                                     <i class="bi bi-x-circle me-1"></i>
                                     Temizle
@@ -47,10 +51,21 @@
                                 </button>
                             </div>
                         </div>
+
+                        <!-- Değer gösterme alanı -->
+                        <div id="valueResult" class="alert alert-info" style="display: none;">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-info-circle me-2"></i>
+                                <strong>Sonuç:</strong>
+                                <span id="valueResultText" class="ms-2"></span>
+                                <button type="button" class="btn-close ms-auto" onclick="hideValueResult()"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
@@ -69,7 +84,6 @@
                                             <th>İsim</th>
                                             <th>Tip</th>
                                             <th>Değer</th>
-                                            <th>Uygulama</th>
                                             <th width="200">İşlemler</th>
                                         </tr>
                                     </thead>
@@ -87,6 +101,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
     <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -115,10 +131,6 @@
                             <label for="value" class="form-label">Değer <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="value" name="value" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="applicationName" class="form-label">Uygulama Adı <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="applicationName" name="applicationName" required>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -128,6 +140,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Toast Container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-success text-white">
@@ -135,8 +149,7 @@
                 <strong class="me-auto">Başarılı</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body" id="successMessage">
-            </div>
+            <div class="toast-body" id="successMessage"></div>
         </div>
         <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-danger text-white">
@@ -144,8 +157,7 @@
                 <strong class="me-auto">Hata</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body" id="errorMessage">
-            </div>
+            <div class="toast-body" id="errorMessage"></div>
         </div>
     </div>
 
@@ -159,14 +171,16 @@
         document.addEventListener('DOMContentLoaded', function () {
             configModal = new bootstrap.Modal(document.getElementById('configModal'));
             loadConfigurations();
-            loadApplications();
             setupEventListeners();
         });
 
         function setupEventListeners() {
             document.getElementById('nameFilter').addEventListener('input', debounce(filterConfigurations, 300));
-            document.getElementById('applicationFilter').addEventListener('change', filterConfigurations);
-            document.getElementById('statusFilter').addEventListener('change', filterConfigurations);
+            document.getElementById('valueSearch').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    getValueByName();
+                }
+            });
         }
 
         function debounce(func, wait) {
@@ -198,86 +212,104 @@
             }
         }
 
-        async function loadApplications() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/applications`);
-                if (!response.ok) {
-                    throw new Error('Uygulama listesi yüklenemedi');
-                }
-                const applications = await response.json();
-                const select = document.getElementById('applicationFilter');
+        async function filterConfigurations() {
+            const nameFilter = document.getElementById('nameFilter').value.trim();
 
-                applications.forEach(app => {
-                    const option = document.createElement('option');
-                    option.value = app;
-                    option.textContent = app;
-                    select.appendChild(option);
-                });
+            if (!nameFilter) {
+                displayConfigurations(configurations);
+                return;
+            }
+
+            try {
+                showLoading();
+                const response = await fetch(`${API_BASE_URL}?name=${encodeURIComponent(nameFilter)}`);
+                if (!response.ok) {
+                    throw new Error('Arama başarısız');
+                }
+                const filtered = await response.json();
+                displayConfigurations(filtered);
             } catch (error) {
                 console.error('Hata:', error);
+                showError('Arama sırasında hata oluştu');
+            } finally {
+                hideLoading();
             }
+        }
+
+        async function getValueByName() {
+            const searchTerm = document.getElementById('valueSearch').value.trim();
+
+            if (!searchTerm) {
+                showError('Lütfen bir isim girin');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/value/${encodeURIComponent(searchTerm)}`);
+
+                if (response.ok) {
+                    const value = await response.text();
+                    // JSON response olabilir, text olarak al
+                    const cleanValue = value.startsWith('"') ? JSON.parse(value) : value;
+                    document.getElementById('valueResultText').textContent = `${searchTerm} = ${cleanValue}`;
+                    document.getElementById('valueResult').style.display = 'block';
+                } else if (response.status === 404) {
+                    document.getElementById('valueResultText').textContent = `'${searchTerm}' isimli konfigürasyon bulunamadı`;
+                    document.getElementById('valueResult').style.display = 'block';
+                    document.getElementById('valueResult').className = 'alert alert-warning';
+                } else {
+                    throw new Error('Değer alınamadı');
+                }
+            } catch (error) {
+                console.error('Hata:', error);
+                showError('Değer alınırken hata oluştu');
+            }
+        }
+
+        function hideValueResult() {
+            document.getElementById('valueResult').style.display = 'none';
+            document.getElementById('valueResult').className = 'alert alert-info';
+            document.getElementById('valueSearch').value = '';
+        }
+
+        function clearFilters() {
+            document.getElementById('nameFilter').value = '';
+            hideValueResult();
+            displayConfigurations(configurations);
         }
 
         function displayConfigurations(configs) {
             const tbody = document.getElementById('configTableBody');
             const tableContainer = document.getElementById('tableContainer');
-            const noData = document.getElementById('noData');
-
-            tbody.innerHTML = '';
+            const noDataDiv = document.getElementById('noData');
 
             if (configs.length === 0) {
                 tableContainer.style.display = 'none';
-                noData.style.display = 'block';
+                noDataDiv.style.display = 'block';
                 return;
             }
 
             tableContainer.style.display = 'block';
-            noData.style.display = 'none';
+            noDataDiv.style.display = 'none';
 
+            tbody.innerHTML = '';
             configs.forEach(config => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                            <td class="fw-semibold">${config.name}</td>
-                            <td><span class="badge bg-info">${config.type}</span></td>
-                            <td><code>${config.value}</code></td>
-                            <td>${config.applicationName}</td>
-                    
+                            <td><strong>${escapeHtml(config.name)}</strong></td>
+                            <td><span class="badge bg-secondary">${escapeHtml(config.type)}</span></td>
+                            <td><code>${escapeHtml(config.value)}</code></td>
                             <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button class="btn btn-outline-primary" onclick="editConfiguration('${config.id}')" title="Düzenle">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                             
-                                    <button class="btn btn-outline-danger" onclick="deleteConfiguration('${config.id}')" title="Sil">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
+                                <button class="btn btn-sm btn-outline-primary me-1" onclick="editConfiguration('${config.id}')">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteConfiguration('${config.id}', '${escapeHtml(config.name)}')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </td>
                         `;
                 tbody.appendChild(row);
             });
-        }
-
-        function filterConfigurations() {
-            const nameFilter = document.getElementById('nameFilter').value.toLowerCase();
-            const applicationFilter = document.getElementById('applicationFilter').value;
-            const statusFilter = document.getElementById('statusFilter').value;
-
-            const filtered = configurations.filter(config => {
-                const matchesName = !nameFilter || config.name.toLowerCase().includes(nameFilter);
-                const matchesApplication = !applicationFilter || config.applicationName === applicationFilter;
-
-                return matchesName && matchesApplication && matchesStatus;
-            });
-
-            displayConfigurations(filtered);
-        }
-
-        function clearFilters() {
-            document.getElementById('nameFilter').value = '';
-            document.getElementById('applicationFilter').value = '';
-            document.getElementById('statusFilter').value = '';
-            displayConfigurations(configurations);
         }
 
         function openAddModal() {
@@ -287,30 +319,42 @@
             configModal.show();
         }
 
-        function editConfiguration(id) {
-            const config = configurations.find(c => c.id === id);
-            if (!config) return;
+        async function editConfiguration(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/${id}`);
+                if (!response.ok) {
+                    throw new Error('Konfigürasyon getirilemedi');
+                }
 
-            currentEditId = id;
-            document.getElementById('configModalLabel').textContent = 'Konfigürasyon Düzenle';
-            document.getElementById('name').value = config.name;
-            document.getElementById('type').value = config.type;
-            document.getElementById('value').value = config.value;
-            document.getElementById('applicationName').value = config.applicationName;
+                const config = await response.json();
+                currentEditId = id;
 
-            configModal.show();
+                document.getElementById('configModalLabel').textContent = 'Konfigürasyon Düzenle';
+                document.getElementById('name').value = config.name;
+                document.getElementById('type').value = config.type;
+                document.getElementById('value').value = config.value;
+
+                configModal.show();
+            } catch (error) {
+                console.error('Hata:', error);
+                showError('Konfigürasyon düzenlenirken hata oluştu');
+            }
         }
 
-        async function handleFormSubmit(e) {
-            e.preventDefault();
+        async function handleFormSubmit(event) {
+            event.preventDefault();
 
             const form = document.getElementById('configForm');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+
             const formData = new FormData(form);
             const configData = {
                 name: formData.get('name'),
                 type: formData.get('type'),
-                value: formData.get('value'),
-                applicationName: formData.get('applicationName'),
+                value: formData.get('value')
             };
 
             try {
@@ -333,43 +377,39 @@
                     });
                 }
 
-                if (!response.ok) {
-                    const error = await response.text();
-                    throw new Error(error);
+                if (response.ok) {
+                    configModal.hide();
+                    await loadConfigurations();
+                    showSuccess(currentEditId ? 'Konfigürasyon güncellendi' : 'Konfigürasyon eklendi');
+                } else {
+                    const errorData = await response.text();
+                    throw new Error(errorData || 'İşlem başarısız');
                 }
-
-                configModal.hide();
-                await loadConfigurations();
-                await loadApplications();
-                showSuccess(currentEditId ? 'Konfigürasyon güncellendi' : 'Konfigürasyon eklendi');
             } catch (error) {
                 console.error('Hata:', error);
-                showError('İşlem gerçekleştirilirken hata oluştu: ' + error.message);
+                showError(error.message);
             }
         }
 
-    
-
-        async function deleteConfiguration(id) {
-            // Bootstrap modal ile onay
-            const confirmed = confirm('Bu konfigürasyonu silmek istediğinizden emin misiniz?');
-            if (!confirmed) return;
+        async function deleteConfiguration(id, name) {
+            if (!confirm(`'${name}' konfigürasyonunu silmek istediğinizden emin misiniz?`)) {
+                return;
+            }
 
             try {
                 const response = await fetch(`${API_BASE_URL}/${id}`, {
                     method: 'DELETE'
                 });
 
-                if (!response.ok) {
-                    throw new Error('Konfigürasyon silinemedi');
+                if (response.ok) {
+                    await loadConfigurations();
+                    showSuccess('Konfigürasyon silindi');
+                } else {
+                    throw new Error('Silme işlemi başarısız');
                 }
-
-                await loadConfigurations();
-                await loadApplications();
-                showSuccess('Konfigürasyon silindi');
             } catch (error) {
                 console.error('Hata:', error);
-                showError('Konfigürasyon silinirken hata oluştu');
+                showError('Silme işlemi sırasında hata oluştu');
             }
         }
 
@@ -393,6 +433,15 @@
             document.getElementById('errorMessage').textContent = message;
             const toast = new bootstrap.Toast(document.getElementById('errorToast'));
             toast.show();
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
     </script>
 </body>
