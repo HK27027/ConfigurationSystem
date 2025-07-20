@@ -5,7 +5,13 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaseSecilStore", "CaseSecilStore\CaseSecilStore.csproj", "{1E313D87-D6F0-4772-A170-E18CA4B22A74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{DAC21F0C-C35B-4B3A-9381-4C22FE70433E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "Library\Library.csproj", "{DAC21F0C-C35B-4B3A-9381-4C22FE70433E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D824C04-2438-4CFD-B0C4-1938C1F5FBF7}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		CaseSecilStore\Dockerfile = CaseSecilStore\Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
